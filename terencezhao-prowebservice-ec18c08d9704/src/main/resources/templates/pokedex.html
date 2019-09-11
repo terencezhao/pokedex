@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Pokedex</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" href="http://icons.iconarchive.com/icons/chrisbanks2/cold-fusion-hd/128/pokemon-icon.png"/>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          type="text/css"/>
+</head>
+<body>
+<div class="panel panel-primary" th:if="${not #lists.isEmpty(pokemon)}">
+    <div class="panel-heading">
+        <a class="btn btn-info btn-lg" href="/" role="button">Pokedex</a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Element</th>
+            <th>Height (m)</th>
+            <th>Weight (kg)</th>
+            <th>Level</th>
+            <th>HitPoints</th>
+            <th>Description</th>
+            <th>
+                <a href="/pokedex/create" class="btn btn-danger" role="button">Add a Pokemon</a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pokemon : ${pokemon}">
+            <td><img src="" th:src="${pokemon.imgUrl}" height="100" width="100"/></td>
+            <td th:text="${pokemon.number}"></td>
+            <td th:text="${pokemon.name}"></td>
+            <td th:text="${pokemon.element.type}"></td>
+            <td th:text="${pokemon.height}"></td>
+            <td th:text="${pokemon.weight}"></td>
+            <td th:text="${pokemon.level}"></td>
+            <td th:text="${pokemon.hitPoints}"></td>
+            <td th:text="${pokemon.description}"></td>
+            <td>
+                <div class="btn-group">
+                    <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        Action <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="${'/pokedex/' + pokemon.id}">View</a></li>
+                        <li><a th:href="${'/pokedex/edit/' + pokemon.id}">Edit</a></li>
+                        <li><a th:href="${'/pokedex/delete/' + pokemon.id}">Delete</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a th:href="${'/api/' + pokemon.id}">Api (JSON)</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
